@@ -37,8 +37,8 @@ async function getAll(_: IReq, res: IRes) {
  */
 async function add(req: IReq, res: IRes) {
   const { user } = Validators.add(req.body);
-  await UserService.addOne(user);
-  res.status(HttpStatusCodes.CREATED).end();
+  const newUser = await UserService.addOne(user);
+  res.status(HttpStatusCodes.CREATED).json({ user: newUser });
 }
 
 /**

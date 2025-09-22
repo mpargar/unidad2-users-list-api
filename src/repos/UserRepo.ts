@@ -45,11 +45,12 @@ async function getAll(): Promise<IUser[]> {
 /**
  * Add one user.
  */
-async function add(user: IUser): Promise<void> {
+async function add(user: IUser): Promise<IUser> {
   const db = await orm.openDb();
   user.id = getRandomInt();
   db.users.push(user);
-  return orm.saveDb(db);
+  orm.saveDb(db);
+  return user;
 }
 
 /**
