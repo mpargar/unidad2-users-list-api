@@ -11,6 +11,7 @@ import ENV from '@src/common/constants/ENV';
 import HttpStatusCodes from '@src/common/constants/HttpStatusCodes';
 import { RouteError } from '@src/common/util/route-errors';
 import { NodeEnvs } from '@src/common/constants';
+import cors from 'cors';
 
 
 /******************************************************************************
@@ -26,15 +27,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 // Allow CORS (Cross Origin Resource Sharing)
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-    return res.status(200).json({});
-  }
-  return next();
-});
+app.use(cors());
 
 // Show routes called in console during development
 if (ENV.NodeEnv === NodeEnvs.Dev) {
